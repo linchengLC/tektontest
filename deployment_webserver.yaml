@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubelink-webserver
+  namespace: kubelink-system
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      alibabacloud.com/cmdb-app: kubelink-webserver
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        alibabacloud.com/cmdb-app: kubelink-webserver
+    spec:
+      hostNetwork: true
+      containers:
+      - name: webserver
+        imagePullPolicy: Always
+        image: 15340563736/tekton:latest
+        command: ['sh', "-c", '/home/admin/main']
+        volumeMounts:
+        - mountPath: /home/admin/log
+          name: log
+      volumes:
+      - emptyDir: {}
+        name: log
