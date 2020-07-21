@@ -2,7 +2,7 @@
 FROM reg.docker.alibaba-inc.com/sigma/golang:1.12.13 as builder
 
 WORKDIR /go/src/tektontest
-COPY / /
+COPY . .
 
 # Build
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -o main main.go
