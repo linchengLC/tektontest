@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kubelink-webserver
-  namespace: tekton-pipelines
+  namespace: kubelink-system
 spec:
   replicas: 4
   selector:
